@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "libft.h": "c",
-        "minishell.h": "c",
-        "samin": "c",
-        "readline.h": "c",
-        "stdio.h": "c"
-    }
-}
