@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 08:59:37 by samin             #+#    #+#             */
-/*   Updated: 2021/10/04 10:25:34 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/04 12:33:59 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void			print_sorted_list(t_list *sorted_list);
 
 // builtin
 int				ft_echo(t_parse_node *parse_node);
+void			ft_exit_excption(t_parse_node *parse_node);
 void			ft_exit(t_parse_node *parse_node);
 int				ft_env(t_list *envp_list);
 int				ft_pwd(void);

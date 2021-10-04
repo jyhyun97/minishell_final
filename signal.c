@@ -11,7 +11,7 @@ void	sig_int(int sig_number)
 		if (pid == -1)
 		{
 			write(1, "\n", 1);
-			rl_replace_line("", 0);
+			// rl_replace_line("", 0);
 			rl_on_new_line();
 			rl_redisplay();
 			g_gloval.sig_code = 1;

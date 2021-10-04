@@ -23,18 +23,21 @@ void	add_sorted_node(t_list *list, char *key, char *value)
 	}
 }
 
-void	init_sorted_list(t_list *sorted_list, t_list *envp_list, t_list *shell_list)
+void	init_sorted_list(t_list *sorted_list,
+	t_list *envp_list, t_list *shell_list)
 {
 	envp_list->cur = envp_list->head;
 	while (envp_list->cur != 0)
 	{
-		add_sorted_node(sorted_list, envp_list->cur->key, envp_list->cur->value);
+		add_sorted_node(sorted_list, envp_list->cur->key,
+			envp_list->cur->value);
 		envp_list->cur = envp_list->cur->next;
 	}
 	shell_list->cur = shell_list->head;
 	while (shell_list->cur != 0)
 	{
-		add_sorted_node(sorted_list, shell_list->cur->key, shell_list->cur->value);
+		add_sorted_node(sorted_list, shell_list->cur->key,
+			shell_list->cur->value);
 		shell_list->cur = shell_list->cur->next;
 	}
 }
@@ -52,7 +55,8 @@ void	sort_sorted_list(t_list *sorted_list)
 		sorted_list->cur = sorted_list->head;
 		while (sorted_list->cur->next != 0)
 		{
-			if (ft_strcmp(sorted_list->cur->key, sorted_list->cur->next->key) > 0)
+			if (ft_strcmp(sorted_list->cur->key,
+					sorted_list->cur->next->key) > 0)
 			{
 				tmp.key = sorted_list->cur->key;
 				tmp.value = sorted_list->cur->value;
@@ -74,10 +78,12 @@ void	print_sorted_list(t_list *sorted_list)
 	{
 		if ((ft_strncmp(sorted_list->cur->key, "?", 2)) == 0)
 			printf("");
-		else if (sorted_list->cur->value == 0 || *sorted_list->cur->value == '\0')
+		else if (sorted_list->cur->value == 0
+			|| *sorted_list->cur->value == '\0')
 			printf("declare -x %s\n", sorted_list->cur->key);
 		else
-			printf("declare -x %s=\"%s\"\n", sorted_list->cur->key, sorted_list->cur->value);
+			printf("declare -x %s=\"%s\"\n",
+				sorted_list->cur->key, sorted_list->cur->value);
 		sorted_list->cur = sorted_list->cur->next;
 	}
 }

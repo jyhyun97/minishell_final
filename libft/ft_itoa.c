@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:43:04 by samin             #+#    #+#             */
-/*   Updated: 2020/11/03 02:52:53 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/04 11:44:17 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ char	*number_excption(char *num, long n, int len)
 	return (NULL);
 }
 
-int		number_len(long n)
+int	number_len(long n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n <= 0)
@@ -51,7 +51,8 @@ char	*ft_itoa(int n)
 	int		len;
 
 	len = number_len(n);
-	if (!(num = malloc(sizeof(char) * (len + 1))))
+	num = malloc(sizeof(char) * (len + 1));
+	if (num == NULL)
 		return (NULL);
 	if (n == 0 || n == -2147483648)
 		num = number_excption(num, n, len);

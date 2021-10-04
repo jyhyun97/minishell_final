@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 01:15:00 by samin             #+#    #+#             */
-/*   Updated: 2020/11/09 23:29:01 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/04 11:51:42 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 char	*ft_strdup(const char *s1)
 {
-	char	*tmp;
 	int		len;
+	char	*tmp;
 
 	len = ft_strlen(s1) + 1;
-	if ((tmp = malloc(len * sizeof(char))) == NULL)
+	tmp = malloc(len * sizeof(char));
+	if (tmp == NULL)
 		return (0);
 	ft_memcpy(tmp, s1, len);
 	return (tmp);

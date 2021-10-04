@@ -6,7 +6,7 @@
 #    By: samin <samin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/19 19:36:16 by samin             #+#    #+#              #
-#    Updated: 2020/11/11 01:51:40 by samin            ###   ########.fr        #
+#    Updated: 2021/06/23 10:12:16 by samin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 CC = gcc
 
-CFLAGS	= -g -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra
 
 FILES = ft_memset \
 		ft_bzero \

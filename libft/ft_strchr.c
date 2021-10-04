@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/18 20:27:24 by samin             #+#    #+#             */
-/*   Updated: 2020/10/28 21:22:28 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/04 11:50:45 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i <= ft_strlen(s))

@@ -6,13 +6,13 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 20:50:46 by samin             #+#    #+#             */
-/*   Updated: 2020/11/04 21:50:30 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/04 11:54:00 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		cutprefix(const char *str, const char *set, size_t s1len)
+int	cutprefix(const char *str, const char *set, size_t s1len)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ int		cutprefix(const char *str, const char *set, size_t s1len)
 	return (i);
 }
 
-int		cutsuffix(const char *str, const char *set, size_t s1len)
+int	cutsuffix(const char *str, const char *set, size_t s1len)
 {
 	size_t	i;
 
