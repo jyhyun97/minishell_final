@@ -92,8 +92,11 @@ t_parse_list	*parse_line(char *line, t_list *envp_list)
 	t_parse_list	*parse_list;
 
 	i = 0;
-	if (line == 0 || *line == '\0')
+	if (*line == '\0')
+	{
+		free(line);
 		return (0);
+	}
 	if (check_even_quote(line) == 1)
 	{
 		printf("allow only even quote\n");

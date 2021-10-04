@@ -1,154 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/04 16:58:58 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/04 16:59:25 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-char	*make_key(char *str)
-{
-	char	*rst;
-	int		i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != '=')
-		i++;
-	rst = (char *)malloc(sizeof(char) * (i + 1));
-	i = 0;
-	while (str[i] != '\0' && str[i] != '=')
-	{
-		rst[i] = str[i];
-		i++;
-	}
-	rst[i] = '\0';
-	return (rst);
-}
-
-char	*make_value(char *str)
-{
-	char	*rst;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (str[ft_strlen(str) - i] != '=')
-		i++;
-	rst = (char *)malloc(sizeof(char) * (i));
-	j = 0;
-	while (str[i] != '\0' && str[i] != '=')
-	{
-		rst[j] = str[i];
-		i++;
-		j++;
-	}
-	rst[j] = '\0';
-	return (rst);
-}
-
-int	search_list(t_list *list, char *str)
-{
-	char	*tmp;
-
-	tmp = make_key(str);
-	list->cur = list->head;
-	while (list->cur != 0)
-	{
-		if (ft_strncmp(list->cur->key, tmp, ft_strlen(tmp)) == 0)
-		{
-			free(tmp);
-			return (0);
-		}
-		list->cur = list->cur->next;
-	}
-	free(tmp);
-	return (1);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	count_node(t_list *list)
-{
-	int	num;
-
-	num = 0;
-	list->cur = list->head;
-	while (list->cur != 0)
-	{
-		num++;
-		list->cur = list->cur->next;
-	}
-	return (num);
-}
-
-char	check_export_letter(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '?' || str[i] == '=' || str[i] == '$' || str[i] == '.')
-		return (str[i]);
-	i++;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '?' || str[i] == '$' || str[i] == '.')
-			return (str[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	check_export_format(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '=')
-		return (1);
-	i++;
-	while (str[i] != '\0' && str[i] != '=')
-		i++;
-	if (str[i] != '=')
-		return (1);
-	i++;
-	if (str[i] == '\0')
-		return (1);
-	return (0);
-}
-
-void	delete_node(t_list *list)
-{
-	if (list->cur == list->head && list->cur == list->tail)
-	{
-		free(list->cur);
-		ft_bzero(list, sizeof(t_list));
-		return ;
-	}
-	else if (list->cur == list->head)
-	{
-		list->head = list->cur->next;
-		list->head->prev = 0;
-	}
-	else if (list->cur == list->tail)
-	{
-		list->tail = list->cur->prev;
-		list->tail->next = 0;
-	}
-	else
-	{
-		list->cur->prev->next = list->cur->next;
-		list->cur->next->prev = list->cur->prev;
-	}
-	free(list->cur->key);
-	free(list->cur->value);
-	free(list->cur);
-}
 
 void	print_export(t_list *envp_list, t_list *shell_list)
 {
@@ -199,7 +61,7 @@ void	export_case_shell(t_parse_node *parse_node,
 	add_node(envp_list, parse_node->arg->cur->value);
 }
 
-void	ft_export2(t_parse_node *parse_node,
+static void	ft_export2(t_parse_node *parse_node,
 	t_list *envp_list, t_list *shell_list)
 {
 	if (check_export_format(parse_node->arg->cur->value) == 0)
@@ -243,48 +105,6 @@ int	ft_export(t_parse_node *parse_node, t_list *envp_list, t_list *shell_list)
 				ft_export2(parse_node, envp_list, shell_list);
 			parse_node->arg->cur = parse_node->arg->cur->next;
 		}
-	}
-	return (rtn);
-}
-
-void	delete_key(t_parse_node *parse_node, t_list *list)
-{
-	char	*tmp_key;
-
-	tmp_key = make_key(parse_node->arg->cur->value);
-	list->cur = list->head;
-	while (list->cur != 0)
-	{
-		if (ft_strcmp(tmp_key, list->cur->key) == 0)
-			break ;
-		list->cur = list->cur->next;
-	}
-	delete_node(list);
-	free(tmp_key);
-}
-
-int	ft_unset(t_parse_node *parse_node, t_list *envp_list, t_list *shell_list)
-{
-	int		rtn;
-
-	rtn = 0;
-	parse_node->arg->cur = parse_node->arg->head;
-	while (parse_node->arg->cur != 0)
-	{
-		if (check_export_letter(parse_node->arg->cur->value) != 0)
-		{
-			printf("export: `%s': not a valid identifier\n",
-				parse_node->arg->cur->value);
-			rtn = 1;
-		}
-		else
-		{
-			if (search_list(envp_list, parse_node->arg->cur->value) == 0)
-				delete_key(parse_node, envp_list);
-			else if (search_list(shell_list, parse_node->arg->cur->value) == 0)
-				delete_key(parse_node, shell_list);
-		}
-		parse_node->arg->cur = parse_node->arg->cur->next;
 	}
 	return (rtn);
 }

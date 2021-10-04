@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 08:59:37 by samin             #+#    #+#             */
-/*   Updated: 2021/10/04 12:33:59 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/04 18:03:28 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,14 @@ typedef struct s_gloval
 
 t_gloval	g_gloval;
 
-//builtin_export
+//builtin_export_util j norm ok
 char			*make_key(char *str);
 char			*make_value(char *str);
 int				search_list(t_list *list, char *str);
 int				ft_strcmp(const char *s1, const char *s2);
 int				count_node(t_list *list);
-char			check_export_letter(char *str);
-int				check_export_format(char *str);
-void			delete_node(t_list *list);
+
+//builtin_export j norm ok
 void			print_export(t_list *envp_list, t_list *shell_list);
 void			export_case_envp(t_parse_node *parse_node,
 					t_list *envp_list, t_list *shell_list);
@@ -67,10 +66,18 @@ void			export_case_shell(t_parse_node *parse_node,
 					t_list *envp_list, t_list *shell_list);
 int				ft_export(t_parse_node *parse_node,
 					t_list *envp_list, t_list *shell_list);
+
+//builtin_export2 j norm ok
+char			check_export_letter(char *str);
+int				check_export_format(char *str);
+void			delete_node(t_list *list);
+
+//builtin_unset j norm ok
+void			delete_key(t_parse_node *parse_node, t_list *list);
 int				ft_unset(t_parse_node *parse_node,
 					t_list *envp_list, t_list *shell_list);
 
-// builtin_sorted
+// builtin_sorted j norm ok
 void			add_sorted_node(t_list *list, char *key, char *value);
 void			init_sorted_list(t_list *sorted_list,
 					t_list *envp_list, t_list *shell_list);
@@ -79,11 +86,14 @@ void			print_sorted_list(t_list *sorted_list);
 
 // builtin
 int				ft_echo(t_parse_node *parse_node);
-void			ft_exit_excption(t_parse_node *parse_node);
 void			ft_exit(t_parse_node *parse_node);
+void			ft_exit_numeric_excption(t_parse_node *parse_node); //추가
 int				ft_env(t_list *envp_list);
 int				ft_pwd(void);
+
 int				ft_cd(t_lex_node *dir, t_list *envp_list);
+void			ft_cd_helper1(t_list *envp_list);
+void			ft_cd_helper2(t_list *envp_list);
 
 // execution_run
 int				is_n_option(char *str);
