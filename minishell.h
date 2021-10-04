@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 08:59:37 by samin             #+#    #+#             */
-/*   Updated: 2021/10/04 18:03:28 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/04 21:53:34 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,26 @@ void			init_sorted_list(t_list *sorted_list,
 void			sort_sorted_list(t_list *sorted_list);
 void			print_sorted_list(t_list *sorted_list);
 
-// builtin
-int				ft_echo(t_parse_node *parse_node);
-void			ft_exit(t_parse_node *parse_node);
+// builtin cd_exit s norm ok
 void			ft_exit_numeric_excption(t_parse_node *parse_node); //추가
+void			ft_exit(t_parse_node *parse_node);
+void			ft_cd_helper1(t_list *envp_list);
+void			ft_cd_helper2(t_list *envp_list);
+int				ft_cd(t_lex_node *dir, t_list *envp_list);
+
+// builtin_echo_env_pwd s norm ok
+int				ft_echo(t_parse_node *parse_node);
 int				ft_env(t_list *envp_list);
 int				ft_pwd(void);
 
-int				ft_cd(t_lex_node *dir, t_list *envp_list);
-void			ft_cd_helper1(t_list *envp_list);
-void			ft_cd_helper2(t_list *envp_list);
+//parse_line_util s norm ok
+int				check_even_quote(char *line);
+int				parse_line_exception(char *line, t_list *envp_list);
+void			tokenizing(char **line, char **trimed_line,
+					t_list **envp_list, char ***tokens);
+int				lexicalizing(t_lex_list **lex_list,
+					char **tokens, t_list *envp_list);
+void			parsing(t_parse_list **parse_list, t_lex_list *lex_list);
 
 // execution_run
 int				is_n_option(char *str);
@@ -118,12 +128,14 @@ char			*make_path(char *cmd, t_list *envp_list);
 t_lex_node		*create_lex_node(int type, char *value);
 void			init_lex_list(t_lex_list **list);
 void			add_lex_node(t_lex_list *list, t_lex_node *lex_node);
+void			delete_lex_list(t_lex_list **lex_list);
 void			Lexicalize_token(char **tokens, t_lex_list *lex_list);
 
 // parser
 void			init_parse_list(t_parse_list **list);
 void			add_parse_node(t_parse_list *list, t_parse_node *parse_node);
 t_parse_node	*create_parse_node(t_lex_list *lex_list);
+void			delete_parse_list(t_parse_list **parse_list);
 void			parse_lexer(t_parse_list *parse_list, t_lex_list *lex_list);
 
 // redirection
@@ -131,6 +143,7 @@ int				redirection_in(char *file);
 int				redirection_out(char *file);
 int				redirection_double_out(char *file);
 void			make_heredoc(char *delimiter);
+int				check_syntax_error(t_lex_list *lex_list);
 int				redirection_heredoc(char *delimiter);
 
 // signal
@@ -140,34 +153,46 @@ void			save_input_mode(void);
 void			set_input_mode(void);
 void			reset_input_mode(void);
 
-// tokenizer_divide
-int				count_tokens(char **tokens);
-char			**divide_tokens(char **tokens);
-
-// tokenizer_envp_convert
-int				measure_env_key(char *str);
-char			*get_env(char *key, t_list *envp_list);
-char			*new_arr_str(char *arr_str, char *envp_key, t_list *envp_list);
-char			**convert_env(char **arr, t_list *envp_list);
-
-//tokenizer_envp_list
+//envp_list norm ok
 int				split_key_value(char *str, char **key, char **value);
 void			envp_list_initialize(char **envp, t_list **envp_list);
 void			init_list(t_list **list);
 void			add_node(t_list *list, char *str);
 void			delete_list(t_list **list);
 
-//tokenizer_parser
-char			**arr_free(char **arr);
-int				skip_quotes(char const *s, char q);
+// tokenizer_divide j norm ok
+void			count_tokens_helper(char **tokens, int *i, int *j);
+int				count_tokens(char **tokens);
+char			**divide_tokens(char **tokens);
+
+// tokenizer_envp_convert s norm ok
+int				measure_env_key(char *str);
+char			*get_env(char *key, t_list *envp_list);
+char			**convert_env(char **arr, t_list *envp_list);
+
+// tokenizer_envp_convert_util s norm ok
+void			new_arr_str_helper1(char *arr_str,
+					char *new_str, int *i, int *j);
+char			*new_arr_str_helper2(char *arr_str,
+					char *new_str, int *i, int *j);
+char			*new_arr_str(char *arr_str, char *envp_key, t_list *envp_list);
+
+//tokenizer_parser j norm ok
+static void		cnt_word_helper(char const *s, char c, int *i, int *cnt);
 static int		cnt_word(char const *s, char c);
 static int		cnt_letter(char const *s, char c);
 static char		**arr_fill(char **arr, char const *s, char c);
 char			**word_split(char const *s, char c);
 
-//tokenizer_trim
+//tokenizer_trim j norm ok
 int				count_trimed_token(char *token);
+void			trim_quote_helper1(char *token, char *new_str, int *i, int *j);
+void			trim_quote_helper2(char *token, char *new_str, int *i, int *j);
 char			*trim_quote(char *token);
 char			**trim_tokens(char **tokens);
+
+//tokenizer_util j norm ok
+char			**arr_free(char **arr);
+int				skip_quotes(char const *s, char q);
 
 #endif

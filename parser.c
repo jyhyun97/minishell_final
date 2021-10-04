@@ -49,6 +49,36 @@ t_parse_node	*create_parse_node(t_lex_list *lex_list)
 	return (new_node);
 }
 
+void	delete_parse_list(t_parse_list **parse_list)
+{
+	int				i;
+	t_parse_node	*tmp;
+
+	i = 0;
+	(*parse_list)->cur = (*parse_list)->head;
+	while ((*parse_list)->cur != 0)
+	{
+		i++;
+		if ((*parse_list)->cur->cmd != 0)
+		{
+			free((*parse_list)->cur->cmd);
+			(*parse_list)->cur->cmd = NULL;
+		}
+		if ((*parse_list)->cur->option != 0)
+			delete_lex_list(&(*parse_list)->cur->option);
+		if ((*parse_list)->cur->arg != 0)
+			delete_lex_list(&(*parse_list)->cur->arg);
+		if ((*parse_list)->cur->redirection != 0)
+			delete_lex_list(&(*parse_list)->cur->redirection);
+		tmp = (*parse_list)->cur->next;
+		free((*parse_list)->cur);
+		((*parse_list)->cur) = NULL;
+		(*parse_list)->cur = tmp;
+	}
+	free(*parse_list);
+	(*parse_list) = NULL;
+}
+
 void	parse_lexer(t_parse_list *parse_list, t_lex_list *lex_list)
 {
 	int	count;

@@ -1,33 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_cd_exit.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/04 19:06:34 by samin             #+#    #+#             */
+/*   Updated: 2021/10/04 19:06:36 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-int	ft_echo(t_parse_node *parse_node)
-{
-	int	flag_n;
-
-	flag_n = 0;
-	parse_node->option->cur = parse_node->option->head;
-	while (parse_node->option->cur != 0
-		&& is_n_option(parse_node->option->cur->value) == 0)
-	{
-		flag_n = 1;
-		parse_node->option->cur = parse_node->option->cur->next;
-	}
-	while (parse_node->option->cur != 0)
-	{
-		printf("%s ", parse_node->option->cur->value);
-		parse_node->option->cur = parse_node->option->cur->next;
-	}
-	parse_node->arg->cur = parse_node->arg->head;
-	while (parse_node->arg->cur != 0)
-	{
-		printf("%s ", parse_node->arg->cur->value);
-		parse_node->arg->cur = parse_node->arg->cur->next;
-	}
-	printf("\b");
-	if (flag_n != 1)
-		printf("\n");
-	return (0);
-}
 
 void	ft_exit_numeric_excption(t_parse_node *parse_node)
 {
@@ -78,55 +61,7 @@ void	ft_exit(t_parse_node *parse_node)
 	exit(ft_atoi(parse_node->arg->head->value));
 }
 
-int	ft_env(t_list *envp_list)
-{
-	envp_list->cur = envp_list->head;
-	while (envp_list->cur != 0)
-	{
-		if (ft_strncmp(envp_list->cur->key, "?", 2) == 0)
-			printf("");
-		else
-			printf("%s=%s\n", envp_list->cur->key, envp_list->cur->value);
-		envp_list->cur = envp_list->cur->next;
-	}
-	return (0);
-}
-
-int	ft_pwd(void)
-{
-	char	path[1024];
-
-	printf("%s\n", getcwd(path, 1024));
-	return (0);
-}
-
-// int ft_cd(t_lex_node *dir, t_list *envp_list)
-// {
-// 	if (dir == 0)
-// 	{
-// 		envp_list->cur = envp_list->head;
-// 		while (envp_list->cur != 0)
-// 		{
-// 			if (ft_strncmp(envp_list->cur->key, "HOME", 5) == 0)
-// 				break ;
-// 			envp_list->cur = envp_list->cur->next;
-// 		}
-// 		if (ft_cd_helper1(dir, envp_list)  == 1)
-// 			return (0);
-// 		if (ft_cd_helper2(envp_list))
-// 			return (1);
-// 	}
-// 	else
-// 	{
-// 		if (ft_cd_helper1(dir, envp_list)  == 1)
-// 			return (0);
-		// if (ft_cd_helper2(envp_list))
-		// 	return (1);
-// 	}
-// 	return (0);
-// }
-
-void ft_cd_helper1(t_list *envp_list)
+void	ft_cd_helper1(t_list *envp_list)
 {
 	envp_list->cur = envp_list->head;
 	while (envp_list->cur != 0)
@@ -137,7 +72,7 @@ void ft_cd_helper1(t_list *envp_list)
 	}
 }
 
-void ft_cd_helper2(t_list *envp_list)
+void	ft_cd_helper2(t_list *envp_list)
 {
 	char	path[1024];
 	char	*old_pwd;

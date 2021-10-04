@@ -1,31 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_parser.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/04 20:55:13 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/04 20:55:32 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-char **arr_free(char **arr)
+static void	cnt_word_helper(char const *s, char c, int *i, int *cnt)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (arr[i])
+	if (s[*i] == c || s[*i + 1] == '\0')
 	{
-		free(arr[i]);
-		i++;
+		while (s[*i] == c && s[*i] != '\0')
+			(*i)++;
+		(*cnt)++;
 	}
-	free(arr);
-	return (NULL);
-}
-
-int	skip_quotes(char const *s, char q)
-{
-	int	i;
-
-	i = 0;
-	if (s[i] == q)
-		i++;
-	while (s[i] != q && s[i] != '\0')
-		i++;
-	if (s[i] == q)
-		i++;
-	return (i);
 }
 
 static int	cnt_word(char const *s, char c)
@@ -49,15 +43,8 @@ static int	cnt_word(char const *s, char c)
 			break ;
 		}
 		else if (s[i] != '\0' && s[i] != '"')
-		{
 			i++;
-		}
-		if (s[i] == c || s[i + 1] == '\0')
-		{
-			while (s[i] == c && s[i] != '\0')
-				i++;
-			cnt++;
-		}
+		cnt_word_helper(s, c, &i, &cnt);
 	}
 	return (cnt);
 }
@@ -125,7 +112,8 @@ char	**word_split(char const *s, char c)
 	if (s == NULL)
 		return (0);
 	arr = NULL;
-	if ((arr = arr_fill(arr, s, c)) == NULL)
+	arr = arr_fill(arr, s, c);
+	if (arr == NULL)
 		return (NULL);
 	return (arr);
 }

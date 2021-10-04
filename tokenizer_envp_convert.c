@@ -1,16 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_envp_convert.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/04 21:27:00 by samin             #+#    #+#             */
+/*   Updated: 2021/10/04 21:27:02 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int measure_env_key(char *str)
+int	measure_env_key(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == ' ' || str[i] == '$' || str[i] == '"' || str[i] == '\'' || str[i] == '|' || str[i] == '>' || str[i] == '<')
-		{
-			break;
-		}
+		if (str[i] == ' ' || str[i] == '$' || str[i] == '"' || str[i] == '\''
+			|| str[i] == '|' || str[i] == '>' || str[i] == '<')
+			break ;
 		i++;
 	}
 	return (i);
@@ -24,53 +35,13 @@ char	*get_env(char *key, t_list *envp_list)
 	envp_list->cur = envp_list->head;
 	while (envp_list->cur != NULL)
 	{
-		if (ft_strncmp(envp_list->cur->key, key, ft_strlen(envp_list->cur->key)) == 0
+		if (ft_strncmp(envp_list->cur->key, key,
+				ft_strlen(envp_list->cur->key)) == 0
 			&& ft_strncmp(envp_list->cur->key, key, ft_strlen(key)) == 0)
 			return (envp_list->cur->value);
 		envp_list->cur = envp_list->cur->next;
 	}
 	return ("");
-}
-
-char	*new_arr_str(char *arr_str, char *envp_key, t_list *envp_list)
-{
-	char	*new_str;
-	char	*envp_value;
-	int		i;
-	int		j;
-	int		k;
-
-	envp_value = get_env(envp_key, envp_list);
-	new_str = (char *)malloc(sizeof(char) * ((int)ft_strlen(arr_str) + (int)ft_strlen(envp_value) + 4));
-	i = 0;
-	j = 0;
-	k = 0;
-	while (arr_str[i] != '$' && arr_str[i] != '\0')
-	{
-		new_str[j] = arr_str[i];
-		j++;
-		i++;
-	}
-	if (arr_str[i] == '$')
-	{
-		i++;
-		while (envp_value[k] != '\0')
-		{
-			new_str[j] = envp_value[k];
-			j++;
-			k++;
-		}
-		i += ft_strlen(envp_key);
-	}
-	while (arr_str[i] != '\0')
-	{
-		new_str[j] = arr_str[i];
-		j++;
-		i++;
-	}
-	new_str[j] = '\0';
-	free(arr_str);
-	return (new_str);
 }
 
 char	**convert_env(char **arr, t_list *envp_list)
@@ -80,7 +51,6 @@ char	**convert_env(char **arr, t_list *envp_list)
 	char	*tmp;
 
 	i = 0;
-	j = 0;
 	while (arr[i] != 0)
 	{
 		j = 0;
