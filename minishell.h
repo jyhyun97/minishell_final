@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 08:59:37 by samin             #+#    #+#             */
-/*   Updated: 2021/10/05 19:21:11 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 21:49:58 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
-// #include "include/readline/readline.h"
-// #include "include/readline/history.h"
+// # include "include/readline/readline.h"
+// # include "include/readline/history.h"
 # include "libft/libft.h"
 # include "struct.h"
 # include <termios.h>
@@ -63,7 +63,7 @@ int				count_node(t_list *list);
 //builtin_export j norm ok
 void			print_export(t_list *envp_list, t_list *shell_list);
 void			export_case_envp(t_parse_node *parse_node,
-					t_list *envp_list, t_list *shell_list);
+					t_list *envp_list);
 void			export_case_shell(t_parse_node *parse_node,
 					t_list *envp_list, t_list *shell_list);
 int				ft_export(t_parse_node *parse_node,
@@ -130,7 +130,7 @@ void			multi_pipe(t_parse_list *parse_list,
 
 // execution_util 사민
 int				count_lex_node(t_lex_list *lex_list);
-char			**make_argv(t_parse_node *parse_node, t_list *envp_list);
+char			**make_argv(t_parse_node *parse_node);
 int				is_builtin(char *cmd);
 char			*make_path_helper(char **bins, char *new_path, char *cmd);
 char			*make_path(char *cmd, t_list *envp_list);
@@ -160,8 +160,8 @@ void			lexicalize_other(char **tokens, t_lex_list *lex_list,
 					int *flag_type, int *i);
 // lexicalize_token
 void			lexicalize_token(char **tokens, t_lex_list *lex_list);
-static int		lexicalize_token_helper(char **tokens,
-					int *flag_type, t_lex_list *lex_list, int *i);
+// static int		lexicalize_token_helper(char **tokens,
+// 					int *flag_type, t_lex_list *lex_list, int *i);
 
 // parser j norm ok 
 void			init_parse_list(t_parse_list **list);
@@ -175,7 +175,6 @@ int				redirection_in(char *file);
 int				redirection_out(char *file);
 int				redirection_double_out(char *file);
 void			make_heredoc(char *delimiter);
-
 int				redirection_heredoc(char *delimiter);
 
 // signal j norm ok
@@ -210,10 +209,10 @@ char			*new_arr_str_helper2(char *arr_str,
 char			*new_arr_str(char *arr_str, char *envp_key, t_list *envp_list);
 
 //tokenizer_parser j norm ok
-static void		cnt_word_helper(char const *s, char c, int *i, int *cnt);
-static int		cnt_word(char const *s, char c);
-static int		cnt_letter(char const *s, char c);
-static char		**arr_fill(char **arr, char const *s, char c);
+// static void		cnt_word_helper(char const *s, char c, int *i, int *cnt);
+// static int		cnt_word(char const *s, char c);
+// static int		cnt_letter(char const *s, char c);
+// static char		**arr_fill(char **arr, char const *s, char c);
 char			**word_split(char const *s, char c);
 
 //tokenizer_trim j norm ok

@@ -36,6 +36,8 @@ void	execute_line_helper2(t_list *envp_list,
 	int	pid;
 	int	status;
 
+	pid = 0;
+	status = 0;
 	pid = fork();
 	if (pid == 0)
 		multi_pipe(parse_list, envp_list, shell_list);
@@ -50,7 +52,6 @@ void	execute_line(t_parse_list *parse_list,
 		t_list *envp_list, t_list *shell_list)
 {
 	int	length;
-	int	pid;
 	int	fd[2];
 
 	length = 0;

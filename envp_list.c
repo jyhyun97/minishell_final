@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:33:11 by samin             #+#    #+#             */
-/*   Updated: 2021/10/05 17:33:48 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 21:46:19 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	split_key_value(char *str, char **key, char **value)
 	int	i;
 
 	i = 0;
-	while (i < ft_strlen(str))
+	while (i < (int)ft_strlen(str))
 	{
 		if (str[i] == '=')
 		{

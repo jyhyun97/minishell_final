@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 11:31:02 by jeonhyun          #+#    #+#             */
-/*   Updated: 2021/10/05 13:32:39 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 21:41:49 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sig_int(int sig_number)
 		if (pid == -1)
 		{
 			write(1, "\n", 1);
-			// rl_replace_line("", 0);
+			rl_replace_line("", 0);
 			rl_on_new_line();
 			rl_redisplay();
 			g_gloval.sig_code = 1;

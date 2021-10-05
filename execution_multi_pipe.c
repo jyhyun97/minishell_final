@@ -13,7 +13,7 @@ void	multi_pipe_helper1(t_parse_list *parse_list,
 		else
 		{
 			execve(make_path(parse_list->cur->cmd, envp_list),
-				make_argv(parse_list->cur, envp_list), 0);
+				make_argv(parse_list->cur), 0);
 			printf("%s : command not found\n", parse_list->cur->cmd);
 			exit(127);
 		}
@@ -35,7 +35,7 @@ void	multi_pipe_helper2(t_parse_list *parse_list,
 		else
 		{
 			execve(make_path(parse_list->cur->cmd, envp_list),
-				make_argv(parse_list->cur, envp_list), 0);
+				make_argv(parse_list->cur), 0);
 			printf("%s : command not found\n", parse_list->cur->cmd);
 			exit(127);
 		}
@@ -63,7 +63,7 @@ void	multi_pipe_helper3(t_parse_list *parse_list,
 		else
 		{
 			execve(make_path(parse_list->cur->cmd, envp_list),
-				make_argv(parse_list->cur, envp_list), 0);
+				make_argv(parse_list->cur), 0);
 			printf("%s : command not found\n", parse_list->cur->cmd);
 			exit(127);
 		}
@@ -90,7 +90,7 @@ void	multi_pipe_helper4(t_parse_list *parse_list,
 		else
 		{
 			execve(make_path(parse_list->cur->cmd, envp_list),
-				make_argv(parse_list->cur, envp_list), 0);
+				make_argv(parse_list->cur), 0);
 			printf("%s : command not found\n", parse_list->cur->cmd);
 			exit(127);
 		}
@@ -102,7 +102,6 @@ void	multi_pipe(t_parse_list *parse_list,
 	t_list *envp_list, t_list *shell_list)
 {
 	int	pid;
-	int	status;
 
 	pid = 0;
 	parse_list->cur = parse_list->tail;

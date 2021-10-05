@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:31:09 by samin             #+#    #+#             */
-/*   Updated: 2021/10/05 17:27:25 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 21:53:42 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	execute_builtin(t_parse_list *parse_list,
 {
 	int	rtn;
 
+	rtn = 0;
 	if (ft_strncmp(parse_list->cur->cmd, "echo", 5) == 0)
 		rtn = ft_echo(parse_list->cur);
 	else if (ft_strncmp(parse_list->cur->cmd, "export", 7) == 0)

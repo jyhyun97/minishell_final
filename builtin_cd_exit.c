@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 19:06:34 by samin             #+#    #+#             */
-/*   Updated: 2021/10/05 18:00:23 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 21:42:22 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_exit_numeric_excption(t_parse_node *parse_node)
 	int	i;
 
 	i = -1;
-	while (++i < ft_strlen(parse_node->arg->head->value))
+	while (++i < (int)ft_strlen(parse_node->arg->head->value))
 	{
 		if (ft_isdigit(parse_node->arg->head->value[i]) == 0)
 		{

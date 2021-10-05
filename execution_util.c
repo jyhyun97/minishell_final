@@ -14,7 +14,7 @@ int	count_lex_node(t_lex_list *lex_list)
 	return (num);
 }
 
-char	**make_argv(t_parse_node *parse_node, t_list *envp_list)
+char	**make_argv(t_parse_node *parse_node)
 {
 	char	**new_argv;
 	int		i;
@@ -83,9 +83,8 @@ char	*make_path(char *cmd, t_list *envp_list)
 {
 	char	**bins;
 	char	*new_path;
-	char	*tmp;
-	int		i;
 
+	new_path = NULL;
 	envp_list->cur = envp_list->head;
 	while (envp_list->cur != 0)
 	{

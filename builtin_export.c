@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 16:58:58 by jeonhyun          #+#    #+#             */
-/*   Updated: 2021/10/05 17:00:09 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 21:45:42 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_export(t_list *envp_list, t_list *shell_list)
 }
 
 void	export_case_envp(t_parse_node *parse_node,
-		t_list *envp_list, t_list *shell_list)
+		t_list *envp_list)
 {
 	char	*tmp_key;
 	char	*tmp_value;
@@ -68,7 +68,7 @@ static void	ft_export2(t_parse_node *parse_node,
 	{
 		if (search_list(envp_list,
 				parse_node->arg->cur->value) == 0)
-			export_case_envp(parse_node, envp_list, shell_list);
+			export_case_envp(parse_node, envp_list);
 		else if (search_list(shell_list,
 				parse_node->arg->cur->value) == 0)
 			export_case_shell(parse_node, envp_list, shell_list);
