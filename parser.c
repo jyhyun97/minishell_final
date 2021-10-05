@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 11:30:09 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/05 11:30:25 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	init_parse_list(t_parse_list **list)
@@ -37,11 +49,14 @@ t_parse_node	*create_parse_node(t_lex_list *lex_list)
 		if (lex_list->cur->type == CMD)
 			new_node->cmd = ft_strdup(lex_list->cur->value);
 		else if (lex_list->cur->type == OPTION)
-			add_lex_node(new_node->option, create_lex_node(lex_list->cur->type, lex_list->cur->value));
+			add_lex_node(new_node->option,
+				create_lex_node(lex_list->cur->type, lex_list->cur->value));
 		else if (lex_list->cur->type >= 0 && lex_list->cur->type <= 3)
-			add_lex_node(new_node->redirection, create_lex_node(lex_list->cur->type, lex_list->cur->value));
+			add_lex_node(new_node->redirection,
+				create_lex_node(lex_list->cur->type, lex_list->cur->value));
 		else if (lex_list->cur->type == ARGUMENT)
-			add_lex_node(new_node->arg, create_lex_node(lex_list->cur->type, lex_list->cur->value));
+			add_lex_node(new_node->arg,
+				create_lex_node(lex_list->cur->type, lex_list->cur->value));
 		lex_list->cur = lex_list->cur->next;
 		if (lex_list->cur == 0)
 			break ;
@@ -72,7 +87,6 @@ void	delete_parse_list(t_parse_list **parse_list)
 			delete_lex_list(&(*parse_list)->cur->redirection);
 		tmp = (*parse_list)->cur->next;
 		free((*parse_list)->cur);
-		((*parse_list)->cur) = NULL;
 		(*parse_list)->cur = tmp;
 	}
 	free(*parse_list);

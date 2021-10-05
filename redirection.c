@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 11:17:30 by samin             #+#    #+#             */
+/*   Updated: 2021/10/05 17:27:33 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	redirection_in(char *file)
@@ -56,6 +68,5 @@ void	make_heredoc(char *delimiter)
 int	redirection_heredoc(char *delimiter)
 {
 	redirection_in("heredoc_tmp");
-	unlink("heredoc_tmp");
 	return (0);
 }

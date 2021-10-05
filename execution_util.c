@@ -17,11 +17,11 @@ int	count_lex_node(t_lex_list *lex_list)
 char	**make_argv(t_parse_node *parse_node, t_list *envp_list)
 {
 	char	**new_argv;
-	int		cnt_all_node;
 	int		i;
 
-	cnt_all_node = count_lex_node(parse_node->option) + count_lex_node(parse_node->arg);
-	new_argv = (char **)malloc(sizeof(char *) * (cnt_all_node + 2));
+	new_argv = (char **)malloc(sizeof(char *)
+			* (count_lex_node(parse_node->option)
+				+ count_lex_node(parse_node->arg) + 2));
 	i = 0;
 	parse_node->option->cur = parse_node->option->head;
 	new_argv[i] = parse_node->cmd;
@@ -56,6 +56,29 @@ int	is_builtin(char *cmd)
 		return (1);
 }
 
+char	*make_path_helper(char **bins, char *new_path, char *cmd)
+{
+	int			i;
+	char		*tmp;
+	struct stat	buf;
+
+	i = 0;
+	while (bins[i] != 0)
+	{
+		tmp = ft_strjoin(bins[i], "/");
+		new_path = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (stat(new_path, &buf) != -1)
+		{
+			arr_free(bins);
+			return (new_path);
+		}
+		i++;
+	}
+	arr_free(bins);
+	return (cmd);
+}
+
 char	*make_path(char *cmd, t_list *envp_list)
 {
 	char	**bins;
@@ -73,20 +96,5 @@ char	*make_path(char *cmd, t_list *envp_list)
 	if (envp_list->cur == 0)
 		return (cmd);
 	bins = ft_split(envp_list->cur->value, ':');
-	i = 0;
-	struct stat buf;
-	while (bins[i] != 0)
-	{
-		tmp = ft_strjoin(bins[i], "/");
-		new_path = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (stat(new_path, &buf) != -1)
-		{
-			arr_free(bins);
-			return (new_path);
-		}
-		i++;
-	}
-	arr_free(bins);
-	return (cmd);
+	return (make_path_helper(bins, new_path, cmd));
 }

@@ -1,5 +1,24 @@
 #include "minishell.h"
 
+int	is_n_option(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] != '-')
+		return (1);
+	i++;
+	if (str[i] == '\0')
+		return (1);
+	while (str[i] != '\0')
+	{
+		if (str[i] != 'n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	ft_echo(t_parse_node *parse_node)
 {
 	int	flag_n;

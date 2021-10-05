@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 11:31:02 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/05 13:32:39 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	sig_int(int sig_number)
@@ -22,13 +34,10 @@ void	sig_int(int sig_number)
 			g_gloval.sig_code = 130;
 		}
 	}
-	else if (sig_number == SIGQUIT)
+	else if (sig_number == SIGQUIT && pid != -1)
 	{
-		if (pid != -1)
-		{
-			write(1, "Quit: 3\n", 8);
-			g_gloval.sig_code = 131;
-		}
+		write(1, "Quit: 3\n", 8);
+		g_gloval.sig_code = 131;
 	}
 }
 

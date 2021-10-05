@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 08:59:37 by samin             #+#    #+#             */
-/*   Updated: 2021/10/04 21:53:34 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 18:00:42 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void			ft_cd_helper2(t_list *envp_list);
 int				ft_cd(t_lex_node *dir, t_list *envp_list);
 
 // builtin_echo_env_pwd s norm ok
+int				is_n_option(char *str);
 int				ft_echo(t_parse_node *parse_node);
 int				ft_env(t_list *envp_list);
 int				ft_pwd(void);
@@ -105,48 +106,65 @@ int				lexicalizing(t_lex_list **lex_list,
 					char **tokens, t_list *envp_list);
 void			parsing(t_parse_list **parse_list, t_lex_list *lex_list);
 
-// execution_run
-int				is_n_option(char *str);
+// execution_line 사민
+int				execute_line_helper1(t_parse_list *parse_list,
+					t_list *envp_list, t_list *shell_list, int *fd);
+void			execute_line_helper2(t_list *envp_list,
+					t_parse_list *parse_list, t_list *shell_list);
+void			execute_line(t_parse_list *parse_list,
+					t_list *envp_list, t_list *shell_list);
+
+//execution_multi_pipe 사민
+void			multi_pipe_helper4(t_parse_list *parse_list,
+					t_list *envp_list, t_list *shell_list);
+void			multi_pipe_helper4(t_parse_list *parse_list,
+					t_list *envp_list, t_list *shell_list);
+void			multi_pipe_helper4(t_parse_list *parse_list,
+					t_list *envp_list, t_list *shell_list);
+void			multi_pipe_helper4(t_parse_list *parse_list,
+					t_list *envp_list, t_list *shell_list);
+void			multi_pipe(t_parse_list *parse_list,
+					t_list *envp_list, t_list *shell_list);
+
+// execution_util 사민
+int				count_lex_node(t_lex_list *lex_list);
+char			**make_argv(t_parse_node *parse_node, t_list *envp_list);
+int				is_builtin(char *cmd);
+char			*make_path_helper(char **bins, char *new_path, char *cmd);
+char			*make_path(char *cmd, t_list *envp_list);
+
+// execution_util2 사민
 void			config_heredoc(t_lex_list *redirection_list);
 int				config_redirection(t_lex_list *redirection_list);
 void			connect_pipe(int pipefd[2], int io);
 int				is_heredoc(t_lex_list *redirection_list);
 int				execute_builtin(t_parse_list *parse_list,
 					t_list *envp_list, t_list *shell_list);
-void			multi_pipe(t_parse_list *parse_list,
-					t_list *envp_list, t_list *shell_list);
-void			execute_line(t_parse_list *parse_list,
-					t_list *envp_list, t_list *shell_list);
 
-// execution_util
-int				count_lex_node(t_lex_list *lex_list);
-char			**make_argv(t_parse_node *parse_node, t_list *envp_list);
-int				is_builtin(char *cmd);
-char			*make_path(char *cmd, t_list *envp_list);
-
-// lexicalize_token
+// lexicalize_token 같이
 t_lex_node		*create_lex_node(int type, char *value);
 void			init_lex_list(t_lex_list **list);
 void			add_lex_node(t_lex_list *list, t_lex_node *lex_node);
 void			delete_lex_list(t_lex_list **lex_list);
+int				check_syntax_error(t_lex_list *lex_list);
 void			Lexicalize_token(char **tokens, t_lex_list *lex_list);
 
-// parser
+// parser j norm ok 
 void			init_parse_list(t_parse_list **list);
 void			add_parse_node(t_parse_list *list, t_parse_node *parse_node);
 t_parse_node	*create_parse_node(t_lex_list *lex_list);
 void			delete_parse_list(t_parse_list **parse_list);
 void			parse_lexer(t_parse_list *parse_list, t_lex_list *lex_list);
 
-// redirection
+// redirection norm ok
 int				redirection_in(char *file);
 int				redirection_out(char *file);
 int				redirection_double_out(char *file);
 void			make_heredoc(char *delimiter);
-int				check_syntax_error(t_lex_list *lex_list);
+
 int				redirection_heredoc(char *delimiter);
 
-// signal
+// signal j norm ok
 void			sig_int(int sig_number);
 void			signal_initialize(void);
 void			save_input_mode(void);
