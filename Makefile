@@ -11,6 +11,7 @@ SRCS = tokenizer_envp_convert.c\
 		main.c\
 		signal.c
 
+#gcc *.c -lreadline -lft -L./libft -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)

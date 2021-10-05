@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:22:34 by samin             #+#    #+#             */
-/*   Updated: 2021/10/04 20:33:18 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 18:25:51 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	tokenizing(char **line, char **trimed_line,
 int	lexicalizing(t_lex_list **lex_list, char **tokens, t_list *envp_list)
 {
 	init_lex_list(lex_list);
-	Lexicalize_token(tokens, *lex_list);
+	lexicalize_token(tokens, *lex_list);
 	arr_free(tokens);
 	if (check_syntax_error(*lex_list) == 1)
 	{

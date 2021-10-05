@@ -16,7 +16,33 @@ t_parse_list	*parse_line(char *line, t_list *envp_list)
 	return (parse_list);
 }
 
-//gcc *.c -lreadline -lft -L./libft -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include
+void	minishell_init(char **envp, t_list **envp_list, t_list **shell_list)
+{
+	save_input_mode();
+	set_input_mode();
+	signal_initialize();
+	envp_list_initialize(envp, envp_list);
+	init_list(shell_list);
+}
+
+void	minishell_exception(t_list *envp_list, char *line)
+{
+	if (g_gloval.sig_code != 0)
+	{
+		free(envp_list->head->value);
+		envp_list->head->value = ft_itoa(g_gloval.sig_code);
+		g_gloval.sig_code = 0;
+	}
+	if (line && *line)
+		add_history(line);
+	else if (line == NULL)
+	{
+		printf("exit\n");
+		reset_input_mode();
+		exit(0);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char			*line;
@@ -24,28 +50,11 @@ int	main(int argc, char **argv, char **envp)
 	t_list			*shell_list;
 	t_parse_list	*parse_list;
 
-	save_input_mode();
-	set_input_mode();
-	signal_initialize();
-	envp_list_initialize(envp, &envp_list);
-	init_list(&shell_list);
+	minishell_init(envp, &envp_list, &shell_list);
 	while (1)
 	{
 		line = readline("minishell$ ");
-		if (g_gloval.sig_code != 0)
-		{
-			free(envp_list->head->value);
-			envp_list->head->value = ft_itoa(g_gloval.sig_code);
-			g_gloval.sig_code = 0;
-		}
-		if (line && *line)
-			add_history(line);
-		else if (line == NULL)
-		{
-			printf("exit\n");
-			reset_input_mode();
-			exit(0);
-		}
+		minishell_exception(envp_list, line);
 		parse_list = parse_line(line, envp_list);
 		if (parse_list == 0)
 			continue ;

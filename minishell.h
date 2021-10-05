@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 08:59:37 by samin             #+#    #+#             */
-/*   Updated: 2021/10/05 18:00:42 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/05 19:21:11 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # define PIPE_ERR 104
 # define NEW_LINE_ERR 105
 
+# define FLAG 0
+# define TYPE 1
 typedef struct s_gloval
 {
 	struct termios	org_term;
@@ -141,13 +143,25 @@ int				is_heredoc(t_lex_list *redirection_list);
 int				execute_builtin(t_parse_list *parse_list,
 					t_list *envp_list, t_list *shell_list);
 
-// lexicalize_token 같이
+// lexicalize_util
 t_lex_node		*create_lex_node(int type, char *value);
 void			init_lex_list(t_lex_list **list);
 void			add_lex_node(t_lex_list *list, t_lex_node *lex_node);
 void			delete_lex_list(t_lex_list **lex_list);
 int				check_syntax_error(t_lex_list *lex_list);
-void			Lexicalize_token(char **tokens, t_lex_list *lex_list);
+
+// lexicalize_util2
+void			redirection_without_letter(char **tokens, int *type, int *i);
+int				redirection_with_letter(char **tokens,
+					t_lex_list *lex_list, int *i);
+int				lexicalize_pipe(char **tokens,
+					t_lex_list *lex_list, int *type, int *i);
+void			lexicalize_other(char **tokens, t_lex_list *lex_list,
+					int *flag_type, int *i);
+// lexicalize_token
+void			lexicalize_token(char **tokens, t_lex_list *lex_list);
+static int		lexicalize_token_helper(char **tokens,
+					int *flag_type, t_lex_list *lex_list, int *i);
 
 // parser j norm ok 
 void			init_parse_list(t_parse_list **list);
