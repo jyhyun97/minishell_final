@@ -1,9 +1,11 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-
-LDFLAGS = "-L/${HOME}/.brew/opt/readline/lib"
-CPPFLAGS= "-I/${HOME}/.brew/opt/readline/include"
+# CFLAGS = -Wall -Wextra -Werror
+LIBFT = libft/libft.a
+LDFLAGS = -L${HOME}/.brew/opt/readline/lib
+CPPFLAGS= -I${HOME}/.brew/opt/readline/include	
+MAKE = make
+RM				= rm -f
 SRCS = 	builtin_cd_exit.c\
 		builtin_echo_env_pwd.c\
 		builtin_export.c\
@@ -24,27 +26,29 @@ SRCS = 	builtin_cd_exit.c\
 		parser.c\
 		redirection.c\
 		signal.c\
-		struct.h\
 		tokenizer_divide.c\
 		tokenizer_envp_convert.c\
-		tokenizer_envp_convert.o\
 		tokenizer_envp_convert_util.c\
 		tokenizer_parser.c\
 		tokenizer_trim.c\
 		tokenizer_util.c
+OBJS = $(SRCS:.c=.o)
 
 #gcc *.c -lreadline -lft -L./libft -L$HOME/.brew/opt/readline/lib -I$HOME/.brew/opt/readline/include
 
-OBJS = $(SRCS:.c=.o)
-
-$(NAME) : $(OBJS)
-	$(MAKE) -C ./libft
-	$(CC) -g -lreadline -lft -L./libft -L\${LDFLAGS} -I${CPPFLAGS} -o $(NAME) $(OBJS) 
 
 all: $(NAME)
 
+
+$(NAME) : ${LIBFT} ${OBJS}  
+	$(CC)  ${SRCS} ${LIBFT}  -lreadline ${LDFLAGS} ${CPPFLAGS} -o ${NAME}
+
+${LIBFT}:	
+			$(MAKE) -C /libft 
+
 clean :
-		rm -rf $(OBJS)
+		$(MAKE) -C ./libft clean
+		$(RM) $(OBJS)
 
 fclean : clean
 		rm -rf $(OBJS)
