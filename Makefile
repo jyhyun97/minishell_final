@@ -51,7 +51,7 @@ clean :
 		$(RM) $(OBJS)
 
 fclean : clean
-		rm -rf $(OBJS)
+		rm -rf $(OBJS) ${NAME}
 
 re : fclean $(NAME)
 

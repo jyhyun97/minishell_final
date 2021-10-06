@@ -1,5 +1,26 @@
 #include "minishell.h"
 
+char	**make_envp(t_list *envp_list)
+{
+	char	**rtn;
+	char	*tmp;
+	int		i;
+
+	rtn = (char **)malloc(sizeof(char *) * (count_node(envp_list) + 1));
+	i = 0;
+	envp_list->cur = envp_list->head;
+	while (envp_list->cur != 0)
+	{
+		tmp = ft_strjoin(envp_list->cur->key, "=");
+		rtn[i] = ft_strjoin(tmp, envp_list->cur->value);
+		free(tmp);
+		i++;
+		envp_list->cur = envp_list->cur->next;
+	}
+	rtn[i] = 0;
+	return (rtn);
+}
+
 void	multi_pipe_helper1(t_parse_list *parse_list,
 	t_list *envp_list, t_list *shell_list)
 {
@@ -13,7 +34,7 @@ void	multi_pipe_helper1(t_parse_list *parse_list,
 		else
 		{
 			execve(make_path(parse_list->cur->cmd, envp_list),
-				make_argv(parse_list->cur), 0);
+				make_argv(parse_list->cur), make_envp(envp_list));
 			printf("%s : command not found\n", parse_list->cur->cmd);
 			exit(127);
 		}
@@ -35,7 +56,7 @@ void	multi_pipe_helper2(t_parse_list *parse_list,
 		else
 		{
 			execve(make_path(parse_list->cur->cmd, envp_list),
-				make_argv(parse_list->cur), 0);
+				make_argv(parse_list->cur), make_envp(envp_list));
 			printf("%s : command not found\n", parse_list->cur->cmd);
 			exit(127);
 		}
@@ -63,7 +84,7 @@ void	multi_pipe_helper3(t_parse_list *parse_list,
 		else
 		{
 			execve(make_path(parse_list->cur->cmd, envp_list),
-				make_argv(parse_list->cur), 0);
+				make_argv(parse_list->cur), make_envp(envp_list));
 			printf("%s : command not found\n", parse_list->cur->cmd);
 			exit(127);
 		}
@@ -90,7 +111,7 @@ void	multi_pipe_helper4(t_parse_list *parse_list,
 		else
 		{
 			execve(make_path(parse_list->cur->cmd, envp_list),
-				make_argv(parse_list->cur), 0);
+				make_argv(parse_list->cur), make_envp(envp_list));
 			printf("%s : command not found\n", parse_list->cur->cmd);
 			exit(127);
 		}

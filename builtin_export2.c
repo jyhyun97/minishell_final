@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 17:00:56 by jeonhyun          #+#    #+#             */
-/*   Updated: 2021/10/05 17:33:22 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/06 11:58:34 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ char	check_export_letter(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '?' || str[i] == '=' || str[i] == '$' || str[i] == '.')
+	if (str[i] == '?' || str[i] == '=' || str[i] == '$')
 		return (str[i]);
 	i++;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '?' || str[i] == '$' || str[i] == '.')
+		if (str[i] == '?' || str[i] == '$')
 			return (str[i]);
 		i++;
 	}
