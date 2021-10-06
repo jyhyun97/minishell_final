@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/06 12:24:28 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/06 12:24:34 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
-#define STRUCT_H
+# define STRUCT_H
 
 typedef struct s_node
 {
@@ -45,9 +57,9 @@ typedef struct s_parse_node
 
 typedef struct s_parse_list
 {
-	t_parse_node 		*head;
-	t_parse_node 		*cur;
-	t_parse_node 		*tail;
-} t_parse_list;
+	t_parse_node		*head;
+	t_parse_node		*cur;
+	t_parse_node		*tail;
+}	t_parse_list;
 
 #endif

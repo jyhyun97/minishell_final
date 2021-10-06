@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexicalize_util2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/06 12:03:26 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/06 12:28:02 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	redirection_without_letter(char **tokens, int *type, int *i)
@@ -66,4 +78,18 @@ void	lexicalize_other(char **tokens, t_lex_list *lex_list,
 	}
 	add_lex_node(lex_list, create_lex_node(flag_type[TYPE], tokens[*i]));
 	(*i)++;
+}
+
+int	count_lex_node(t_lex_list *lex_list)
+{
+	int	num;
+
+	num = 0;
+	lex_list->cur = lex_list->head;
+	while (lex_list->cur != 0)
+	{
+		lex_list->cur = lex_list->cur->next;
+		num++;
+	}
+	return (num);
 }

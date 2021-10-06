@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 11:17:30 by samin             #+#    #+#             */
-/*   Updated: 2021/10/05 21:54:45 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/06 12:17:49 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ void	make_heredoc(char *delimiter)
 	close(fd);
 }
 
-int	redirection_heredoc()
+int	redirection_heredoc(void)
 {
-	redirection_in("heredoc_tmp");
+	if (redirection_in("heredoc_tmp") == 1)
+		return (1);
 	return (0);
 }

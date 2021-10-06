@@ -1,25 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_multi_pipe.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/06 12:02:21 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/06 12:28:47 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-char	**make_envp(t_list *envp_list)
-{
-	char	**rtn;
-	char	*tmp;
-	int		i;
-
-	rtn = (char **)malloc(sizeof(char *) * (count_node(envp_list) + 1));
-	i = 0;
-	envp_list->cur = envp_list->head;
-	while (envp_list->cur != 0)
-	{
-		tmp = ft_strjoin(envp_list->cur->key, "=");
-		rtn[i] = ft_strjoin(tmp, envp_list->cur->value);
-		free(tmp);
-		i++;
-		envp_list->cur = envp_list->cur->next;
-	}
-	rtn[i] = 0;
-	return (rtn);
-}
 
 void	multi_pipe_helper1(t_parse_list *parse_list,
 	t_list *envp_list, t_list *shell_list)

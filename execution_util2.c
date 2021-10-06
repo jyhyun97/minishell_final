@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:31:09 by samin             #+#    #+#             */
-/*   Updated: 2021/10/05 21:53:42 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/06 12:31:35 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int	config_redirection(t_lex_list *redirection_list)
 		else if (redirection_list->cur->type == RD_OUT_SINGLE)
 			redirection_out(redirection_list->cur->value);
 		else if (redirection_list->cur->type == RD_IN_DOUBLE)
-			redirection_heredoc(redirection_list->cur->value);
+		{
+			if (redirection_heredoc() == 1)
+				return (1);
+		}
 		else if (redirection_list->cur->type == RD_OUT_DOUBLE)
 			redirection_double_out(redirection_list->cur->value);
 		redirection_list->cur = redirection_list->cur->next;

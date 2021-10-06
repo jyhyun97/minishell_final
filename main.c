@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/06 12:03:38 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/06 12:07:30 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_parse_list	*parse_line(char *line, t_list *envp_list)
@@ -50,6 +62,11 @@ int	main(int argc, char **argv, char **envp)
 	t_list			*shell_list;
 	t_parse_list	*parse_list;
 
+	if (argc > 1 || argv[0] == 0)
+	{
+		printf("%s: No such file or directory\n", argv[1]);
+		return (0);
+	}
 	minishell_init(envp, &envp_list, &shell_list);
 	while (1)
 	{

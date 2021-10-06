@@ -1,6 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: samin <samin@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/10/06 12:08:17 by samin             #+#    #+#              #
+#    Updated: 2021/10/06 12:20:52 by samin            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 CC = gcc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 LIBFT = libft/libft.a
 LDFLAGS = -L${HOME}/.brew/opt/readline/lib
 CPPFLAGS= -I${HOME}/.brew/opt/readline/include	
@@ -34,17 +46,13 @@ SRCS = 	builtin_cd_exit.c\
 		tokenizer_util.c
 OBJS = $(SRCS:.c=.o)
 
-#gcc *.c -lreadline -lft -L./libft -L$HOME/.brew/opt/readline/lib -I$HOME/.brew/opt/readline/include
-
-
 all: $(NAME)
-
 
 $(NAME) : ${LIBFT} ${OBJS}  
 	$(CC)  ${SRCS} ${LIBFT}  -lreadline ${LDFLAGS} ${CPPFLAGS} -o ${NAME}
 
 ${LIBFT}:	
-			$(MAKE) -C /libft 
+			$(MAKE) -C ./libft 
 
 clean :
 		$(MAKE) -C ./libft clean
@@ -52,6 +60,7 @@ clean :
 
 fclean : clean
 		rm -rf $(OBJS) ${NAME}
+		$(MAKE) -C ./libft fclean
 
 re : fclean $(NAME)
 

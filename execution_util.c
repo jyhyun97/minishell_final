@@ -1,17 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_util.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/06 12:02:49 by jeonhyun          #+#    #+#             */
+/*   Updated: 2021/10/06 12:28:38 by samin            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int	count_lex_node(t_lex_list *lex_list)
+char	**make_envp(t_list *envp_list)
 {
-	int	num;
+	char	**rtn;
+	char	*tmp;
+	int		i;
 
-	num = 0;
-	lex_list->cur = lex_list->head;
-	while (lex_list->cur != 0)
+	rtn = (char **)malloc(sizeof(char *) * (count_node(envp_list) + 1));
+	i = 0;
+	envp_list->cur = envp_list->head;
+	while (envp_list->cur != 0)
 	{
-		lex_list->cur = lex_list->cur->next;
-		num++;
+		tmp = ft_strjoin(envp_list->cur->key, "=");
+		rtn[i] = ft_strjoin(tmp, envp_list->cur->value);
+		free(tmp);
+		i++;
+		envp_list->cur = envp_list->cur->next;
 	}
-	return (num);
+	rtn[i] = 0;
+	return (rtn);
 }
 
 char	**make_argv(t_parse_node *parse_node)
