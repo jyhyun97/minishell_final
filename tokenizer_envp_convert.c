@@ -19,8 +19,7 @@ int	measure_env_key(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == ' ' || str[i] == '$' || str[i] == '"' || str[i] == '\''
-			|| str[i] == '|' || str[i] == '>' || str[i] == '<')
+		if (ft_isalnum(str[i]) == 0)
 			break ;
 		i++;
 	}
@@ -62,6 +61,23 @@ char	**convert_env(char **arr, t_list *envp_list)
 				tmp = ft_substr(&arr[i][j], 0, measure_env_key(&arr[i][j]));
 				arr[i] = new_arr_str(arr[i], tmp, envp_list);
 				free(tmp);
+			}
+			else if (arr[i][j] == '"')
+			{
+				j++;
+				while (arr[i][j] != '\0' && arr[i][j] != '"')
+				{
+					if (arr[i][j] == '$')
+					{
+						j++;
+						tmp = ft_substr(&arr[i][j], 0, measure_env_key(&arr[i][j]));
+						arr[i] = new_arr_str(arr[i], tmp, envp_list);
+						free(tmp);
+					}
+					j++;
+				}
+				if (arr[i][j] == '"')
+					j++;
 			}
 			else if (arr[i][j] == '\'')
 				j += skip_quotes(&arr[i][j], '\'');

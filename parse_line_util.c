@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+void	count_quote(char quote, char *line, int *quote_count, int *i)
+{
+	(*quote_count)++;
+	(*i)++;
+	while (line[*i] != '\0' && line[*i] != quote)
+		(*i)++;
+	if (line[*i] == quote)
+	{
+		(*quote_count)++;
+		(*i)++;
+	}
+}
+
 int	check_even_quote(char *line)
 {
 	int	single_quote;
@@ -24,10 +37,11 @@ int	check_even_quote(char *line)
 	while (line[i] != '\0')
 	{
 		if (line[i] == '\'')
-			single_quote++;
+			count_quote('\'', line, &single_quote, &i);
 		else if (line[i] == '"')
-			double_quote++;
-		i++;
+			count_quote('"', line, &double_quote, &i);
+		else if (line[i] != '\0')
+			i++;
 	}
 	if (single_quote % 2 == 0 && double_quote % 2 == 0)
 		return (0);

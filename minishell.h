@@ -99,6 +99,7 @@ int				ft_env(t_list *envp_list);
 int				ft_pwd(void);
 
 //parse_line_util
+void			count_quote(char quote, char *line, int *quote_count, int *i);
 int				check_even_quote(char *line);
 int				parse_line_exception(char *line, t_list *envp_list);
 void			tokenizing(char **line, char **trimed_line,

@@ -17,12 +17,12 @@ char	check_export_letter(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '?' || str[i] == '=' || str[i] == '$')
+	if (ft_isalpha(str[i]) == 0)
 		return (str[i]);
 	i++;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '?' || str[i] == '$')
+		if (ft_isalnum(str[i]) == 0 && str[i] != '=')
 			return (str[i]);
 		i++;
 	}

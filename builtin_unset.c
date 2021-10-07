@@ -38,7 +38,7 @@ int	ft_unset(t_parse_node *parse_node, t_list *envp_list, t_list *shell_list)
 	{
 		if (check_export_letter(parse_node->arg->cur->value) != 0)
 		{
-			printf("export: `%s': not a valid identifier\n",
+			printf("unset: `%s': not a valid identifier\n",
 				parse_node->arg->cur->value);
 			rtn = 1;
 		}

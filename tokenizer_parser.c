@@ -14,12 +14,14 @@
 
 static void	cnt_word_helper(char const *s, char c, int *i, int *cnt)
 {
-	if (s[*i] == c || s[*i + 1] == '\0')
+	if (s[*i] != '\0' && (s[*i] == c || s[(*i) + 1] == '\0'))
 	{
 		while (s[*i] == c && s[*i] != '\0')
 			(*i)++;
 		(*cnt)++;
 	}
+	if (s[*i] == '\0')
+		(*cnt)++;
 }
 
 static int	cnt_word(char const *s, char c)
@@ -34,15 +36,24 @@ static int	cnt_word(char const *s, char c)
 	while (s[i] != '\0')
 	{
 		if (s[i] == '"')
-			i += skip_quotes(&s[i], '"');
-		else if (s[i] == '\'')
-			i += skip_quotes(&s[i], '\'');
-		else if (s[i] == '\0')
 		{
-			cnt++;
-			break ;
+			i += skip_quotes(&s[i], '"');
+			if (s[i] == '\0')
+			{
+				cnt++;
+				break;
+			} 
 		}
-		else if (s[i] != '\0' && s[i] != '"')
+		else if (s[i] == '\'')
+		{
+			i += skip_quotes(&s[i], '\'');
+			if (s[i] == '\0')
+			{
+				cnt++;
+				break; 
+			}
+		}
+		else if (s[i] != '\0')
 			i++;
 		cnt_word_helper(s, c, &i, &cnt);
 	}
@@ -87,13 +98,11 @@ static char	**arr_fill(char **arr, char const *s, char c)
 		return (0);
 	i = 0;
 	j = 0;
-	printf("tokenizer_parser 90 %s\n", s);
 	while (s[i] != '\0')
 	{
 		if (s[i] != c && s[i] != '\0')
 		{
 			arr[j] = ft_substr(&s[i], 0, cnt_letter(&s[i], c));
-			printf("tokenizer_parser  96%s\n", arr[j]);
 			i += cnt_letter(&s[i], c);
 			if (arr[j] == 0)
 				return (0);
@@ -104,12 +113,6 @@ static char	**arr_fill(char **arr, char const *s, char c)
 		i++;
 	}
 	arr[j] = 0;
-	i = 0;
-	while (arr[i] != 0)
-	{
-		printf("tokenizer_parser 110 arr :%s\n", arr[i]);
-		i++;
-	}
 	return (arr);
 }
 
@@ -123,11 +126,5 @@ char	**word_split(char const *s, char c)
 	arr = arr_fill(arr, s, c);
 	if (arr == NULL)
 		return (NULL);
-	int i = 0;
-	while (arr[i] != 0)
-	{
-		printf("tokenizer_parser 129 arr :%s\n", arr[i]);
-		i++;
-	}
 	return (arr);
 }

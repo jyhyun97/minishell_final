@@ -82,12 +82,6 @@ char	**divide_tokens(char **tokens)
 		i++;
 	}
 	new_arr[k] = 0;
-	i = 0;
-	while (tokens[i] != 0)
-	{
-		printf("tokenizer_divide 88 toknes :%s\n", tokens[i]);
-		i++;
-	}
 	arr_free(tokens);
 	return (new_arr);
 }
