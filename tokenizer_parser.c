@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 20:55:13 by jeonhyun          #+#    #+#             */
-/*   Updated: 2021/10/04 20:55:32 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/07 12:55:33 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,13 @@ static char	**arr_fill(char **arr, char const *s, char c)
 		return (0);
 	i = 0;
 	j = 0;
+	printf("tokenizer_parser 90 %s\n", s);
 	while (s[i] != '\0')
 	{
 		if (s[i] != c && s[i] != '\0')
 		{
 			arr[j] = ft_substr(&s[i], 0, cnt_letter(&s[i], c));
+			printf("tokenizer_parser  96%s\n", arr[j]);
 			i += cnt_letter(&s[i], c);
 			if (arr[j] == 0)
 				return (0);
@@ -102,6 +104,12 @@ static char	**arr_fill(char **arr, char const *s, char c)
 		i++;
 	}
 	arr[j] = 0;
+	i = 0;
+	while (arr[i] != 0)
+	{
+		printf("tokenizer_parser 110 arr :%s\n", arr[i]);
+		i++;
+	}
 	return (arr);
 }
 
@@ -115,5 +123,11 @@ char	**word_split(char const *s, char c)
 	arr = arr_fill(arr, s, c);
 	if (arr == NULL)
 		return (NULL);
+	int i = 0;
+	while (arr[i] != 0)
+	{
+		printf("tokenizer_parser 129 arr :%s\n", arr[i]);
+		i++;
+	}
 	return (arr);
 }

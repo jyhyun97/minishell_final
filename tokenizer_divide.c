@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:51:30 by jeonhyun          #+#    #+#             */
-/*   Updated: 2021/10/04 21:55:01 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/07 12:32:53 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,12 @@ char	**divide_tokens(char **tokens)
 		i++;
 	}
 	new_arr[k] = 0;
+	i = 0;
+	while (tokens[i] != 0)
+	{
+		printf("tokenizer_divide 88 toknes :%s\n", tokens[i]);
+		i++;
+	}
 	arr_free(tokens);
 	return (new_arr);
 }
