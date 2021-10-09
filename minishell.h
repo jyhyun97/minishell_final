@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 08:59:37 by samin             #+#    #+#             */
-/*   Updated: 2021/10/07 12:24:52 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/09 17:38:49 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,17 @@ int				ft_echo(t_parse_node *parse_node);
 int				ft_env(t_list *envp_list);
 int				ft_pwd(void);
 
-//parse_line_util
-void			count_quote(char quote, char *line, int *quote_count, int *i);
-int				check_even_quote(char *line);
-int				parse_line_exception(char *line, t_list *envp_list);
+//parse_line
 void			tokenizing(char **line, char **trimed_line,
 					t_list **envp_list, char ***tokens);
 int				lexicalizing(t_lex_list **lex_list,
 					char **tokens, t_list *envp_list);
 void			parsing(t_parse_list **parse_list, t_lex_list *lex_list);
+
+//parse_line_util
+void			count_quote(char quote, char *line, int *quote_count, int *i);
+int				check_even_quote(char *line);
+int				parse_line_exception(char *line, t_list *envp_list);
 
 // execution_line
 int				execute_line_helper1(t_parse_list *parse_list,
@@ -199,6 +201,9 @@ char			**divide_tokens(char **tokens);
 // tokenizer_envp_convert
 int				measure_env_key(char *str);
 char			*get_env(char *key, t_list *envp_list);
+void			convert_env_one(char **arr, t_list *envp_list, int *i, int *j);
+void			convert_env_double_quote(char **arr, t_list *envp_list,
+					int *i, int *j);
 char			**convert_env(char **arr, t_list *envp_list);
 
 // tokenizer_envp_convert_util
@@ -209,7 +214,14 @@ char			*new_arr_str_helper2(char *arr_str,
 char			*new_arr_str(char *arr_str, char *envp_key, t_list *envp_list);
 
 //tokenizer_parser
+char			**arr_fill(char **arr, char const *s, char c);
 char			**word_split(char const *s, char c);
+
+//tokenizer_parser_util
+int				cnt_word_helper1(char const *s, char qoute, int *i, int *cnt);
+void			cnt_word_helper2(char const *s, char c, int *i, int *cnt);
+int				cnt_word(char const *s, char c);
+int				cnt_letter(char const *s, char c);
 
 //tokenizer_trim
 int				count_trimed_token(char *token);

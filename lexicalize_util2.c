@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:03:26 by jeonhyun          #+#    #+#             */
-/*   Updated: 2021/10/07 11:59:55 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/09 14:16:48 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	redirection_with_letter(char **tokens, t_lex_list *lex_list, int *i)
 {
 	if (tokens[*i] == NULL)
 	{
-		add_lex_node(lex_list, create_lex_node(NEW_LINE_ERR, "error"));
+		add_lex_node(lex_list, create_lex_node(NEW_LINE_ERR, "newline"));
 		return (1);
 	}
 	else if (ft_strncmp(tokens[*i], "<<", 2) == 0)
@@ -41,7 +41,7 @@ int	redirection_with_letter(char **tokens, t_lex_list *lex_list, int *i)
 	else if (tokens[*i][0] == '>')
 		add_lex_node(lex_list, create_lex_node(RD_IN_SINGLE_ERR, tokens[*i]));
 	else if (tokens[*i][0] == '|')
-		add_lex_node(lex_list, create_lex_node(PIPE_ERR, tokens[*i]));
+		add_lex_node(lex_list, create_lex_node(PIPE_ERR, "|"));
 	return (0);
 }
 
@@ -51,11 +51,11 @@ int	lexicalize_pipe(char **tokens, t_lex_list *lex_list, int *type, int *i)
 	(*i)++;
 	if (tokens[*i] == NULL)
 	{
-		add_lex_node(lex_list, create_lex_node(PIPE_ERR, "| error"));
+		add_lex_node(lex_list, create_lex_node(PIPE_ERR, "|"));
 		return (1);
 	}
 	else if (tokens[*i][0] == '|' || tokens[0][0] == '|')
-		add_lex_node(lex_list, create_lex_node(PIPE_ERR, tokens[*i]));
+		add_lex_node(lex_list, create_lex_node(PIPE_ERR, "|"));
 	else
 		add_lex_node(lex_list, create_lex_node(*type, tokens[*i]));
 	return (0);

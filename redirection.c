@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 11:17:30 by samin             #+#    #+#             */
-/*   Updated: 2021/10/06 12:17:49 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/09 14:19:03 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int	redirection_out(char *file)
 	int	fd;
 
 	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+	if (fd < 0)
+	{
+		printf("%s : No such file or directory\n", file);
+		return (1);
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (0);
@@ -42,6 +47,11 @@ int	redirection_double_out(char *file)
 	int	fd;
 
 	fd = open(file, O_RDWR | O_CREAT | O_APPEND, S_IRWXU);
+	if (fd < 0)
+	{
+		printf("%s : No such file or directory\n", file);
+		return (1);
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (0);

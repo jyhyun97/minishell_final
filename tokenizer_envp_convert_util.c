@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:27:08 by samin             #+#    #+#             */
-/*   Updated: 2021/10/09 13:51:59 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/09 15:58:49 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,27 @@
 
 void	new_arr_str_helper1(char *arr_str, char *new_str, int *i, int *j)
 {
+	int	double_qoute_flag;
+
+	double_qoute_flag = 0;
 	while (arr_str[*i] != '$' && arr_str[*i] != '\0')
 	{
+		if (arr_str[*i] == '"' && double_qoute_flag == 0)
+			double_qoute_flag = 1;
+		else if (arr_str[*i] == '"' && double_qoute_flag == 1)
+			double_qoute_flag = 0;
+		if (arr_str[*i] == '\'' && double_qoute_flag == 0)
+		{
+			new_str[*j] = arr_str[*i];
+			(*j)++;
+			(*i)++;
+			while (arr_str[*i] != '\'')
+			{
+				new_str[*j] = arr_str[*i];
+				(*j)++;
+				(*i)++;
+			}
+		}
 		new_str[*j] = arr_str[*i];
 		(*j)++;
 		(*i)++;

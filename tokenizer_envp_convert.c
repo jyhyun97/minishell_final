@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:27:00 by samin             #+#    #+#             */
-/*   Updated: 2021/10/09 14:09:58 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/09 17:35:36 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,33 @@ char	*get_env(char *key, t_list *envp_list)
 	return ("");
 }
 
+void	convert_env_one(char **arr, t_list *envp_list, int *i, int *j)
+{
+	char	*tmp;
+
+	(*j)++;
+	tmp = ft_substr(&arr[*i][*j], 0, measure_env_key(&arr[*i][*j]));
+	arr[*i] = new_arr_str(arr[*i], tmp, envp_list);
+	free(tmp);
+}
+
+void	convert_env_double_quote(char **arr, t_list *envp_list, int *i, int *j)
+{
+	(*j)++;
+	while (arr[*i][*j] != '\0' && arr[*i][*j] != '"')
+	{
+		if (arr[*i][*j] == '$')
+			convert_env_one(arr, envp_list, i, j);
+		(*j)++;
+	}
+	if (arr[*i][*j] == '"')
+		(*j)++;
+}
+
 char	**convert_env(char **arr, t_list *envp_list)
 {
 	int		i;
 	int		j;
-	char	*tmp;
 
 	i = 0;
 	while (arr[i] != 0)
@@ -56,29 +78,9 @@ char	**convert_env(char **arr, t_list *envp_list)
 		while (arr[i][j] != '\0')
 		{
 			if (arr[i][j] == '$')
-			{
-				j++;
-				tmp = ft_substr(&arr[i][j], 0, measure_env_key(&arr[i][j]));
-				arr[i] = new_arr_str(arr[i], tmp, envp_list);
-				free(tmp);
-			}
+				convert_env_one(arr, envp_list, &i, &j);
 			else if (arr[i][j] == '"')
-			{
-				j++;
-				while (arr[i][j] != '\0' && arr[i][j] != '"')
-				{
-					if (arr[i][j] == '$')
-					{
-						j++;
-						tmp = ft_substr(&arr[i][j], 0, measure_env_key(&arr[i][j]));
-						arr[i] = new_arr_str(arr[i], tmp, envp_list);
-						free(tmp);
-					}
-					j++;
-				}
-				if (arr[i][j] == '"')
-					j++;
-			}
+				convert_env_double_quote(arr, envp_list, &i, &j);
 			else if (arr[i][j] == '\'')
 				j += skip_quotes(&arr[i][j], '\'');
 			else

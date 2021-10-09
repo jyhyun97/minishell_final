@@ -6,7 +6,7 @@
 #    By: samin <samin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 12:08:17 by samin             #+#    #+#              #
-#    Updated: 2021/10/07 11:58:34 by samin            ###   ########.fr        #
+#    Updated: 2021/10/09 17:39:06 by samin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS = 	builtin_cd_exit.c\
 		lexicalize_util.c\
 		lexicalize_util2.c\
 		main.c\
+		parse_line.c\
 		parse_line_util.c\
 		parser.c\
 		redirection.c\
@@ -42,6 +43,7 @@ SRCS = 	builtin_cd_exit.c\
 		tokenizer_envp_convert.c\
 		tokenizer_envp_convert_util.c\
 		tokenizer_parser.c\
+		tokenizer_parser_util.c\
 		tokenizer_trim.c\
 		tokenizer_util.c
 OBJS = $(SRCS:.c=.o)
