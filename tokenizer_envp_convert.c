@@ -6,7 +6,7 @@
 /*   By: samin <samin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:27:00 by samin             #+#    #+#             */
-/*   Updated: 2021/10/07 19:24:21 by samin            ###   ########.fr       */
+/*   Updated: 2021/10/09 14:09:58 by samin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	measure_env_key(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_isalnum(str[i]) == 0)
+		if (ft_isalnum(str[i]) == 0 && str[i] != '?')
 			break ;
 		i++;
 	}
